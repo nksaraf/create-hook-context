@@ -1,0 +1,36 @@
+{
+  "name": "create-hook-context",
+  "version": "0.0.4",
+  "description": "Create context using a hook for providers",
+  "repository": "nksaraf/create-hook-context",
+  "license": "MIT",
+  "author": "Nikhil Saraf <nsaraf98@gmail.com>",
+  "main": "dist/create-hook-context.cjs.js",
+  "unpkg": "dist/create-hook-context.js",
+  "module": "dist/create-hook-context.js",
+  "source": "src/create-hook-context.tsx",
+  "browser": "dist/create-hook-context.umd.js",
+  "types": "dist/create-hook-context.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "klap build --no-minify",
+    "postbuild": "tsc -p tsconfig.json",
+    "prepublishOnly": "yarn build",
+    "start": "klap start",
+    "watch": "klap watch"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.34",
+    "klap": "4.2.3",
+    "typescript": "3.8.3"
+  },
+  "dependencies": {
+    "@types/node": "^13.13.0",
+    "react": "^16.13.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8"
+  }
+}
