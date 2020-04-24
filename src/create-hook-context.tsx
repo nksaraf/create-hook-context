@@ -28,20 +28,20 @@ export default function createContext<TProviderProps, TContext>(
     return <Context.Provider value={value}>{children}</Context.Provider>;
   };
 
-  if (process.env.NODE_ENV === "development") {
-    Context.displayName = `${contextName}Context`;
-    Provider.displayName = `${contextName}Provider`;
-  }
+  // if (process.env.NODE_ENV !== "production") {
+  Context.displayName = `${contextName}Context`;
+  Provider.displayName = `${contextName}Provider`;
+  // }
 
   const useContext = () => {
     const context = React.useContext(Context);
-    if (process.env.NODE_ENV === "development") {
-      if (context === undefined) {
-        console.warn(
-          `use${contextName}Context must be used within a ${contextName}Provider`
-        );
-      }
+    // if (process.env.NODE_ENV === "development") {
+    if (context === undefined) {
+      console.warn(
+        `use${contextName}Context must be used within a ${contextName}Provider`
+      );
     }
+    // }
     return context as TContext;
   };
 
@@ -55,11 +55,11 @@ export default function createContext<TProviderProps, TContext>(
       </Provider>
     ));
 
-    if (process.env.NODE_ENV === "development") {
-      WithContext.displayName = `With${contextName}(${
-        Component.displayName || Component.name || "Component"
-      })`;
-    }
+    // if (process.env.NODE_ENV === "development") {
+    WithContext.displayName = `With${contextName}(${
+      Component.displayName || Component.name || "Component"
+    })`;
+    // }
     return WithContext;
   }
 
