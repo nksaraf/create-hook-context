@@ -8,7 +8,7 @@
   "main": "dist/create-hook-context.cjs.js",
   "unpkg": "dist/create-hook-context.js",
   "module": "dist/create-hook-context.js",
-  "source": "src/create-hook-context.tsx",
+  "source": "src/index.tsx",
   "browser": "dist/create-hook-context.umd.js",
   "types": "dist/create-hook-context.d.ts",
   "files": [
@@ -16,19 +16,21 @@
   ],
   "scripts": {
     "build": "klap build --no-minify",
-    "postbuild": "tsc -p tsconfig.json",
+    "postbuild": "tsc -p tsconfig.build.json",
     "prepublishOnly": "yarn build",
     "start": "klap start",
-    "watch": "klap watch"
+    "watch": "klap watch",
+    "dev": "next"
   },
   "devDependencies": {
+    "@types/next": "^9.0.0",
+    "@types/node": "^13.13.0",
     "@types/react": "^16.9.34",
     "klap": "4.2.3",
+    "next": "^9.3.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "typescript": "3.8.3"
-  },
-  "dependencies": {
-    "@types/node": "^13.13.0",
-    "react": "^16.13.1"
   },
   "peerDependencies": {
     "react": "^16.8"

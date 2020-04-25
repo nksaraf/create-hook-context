@@ -9,8 +9,10 @@ type WithContext<TProviderProps> = <TRef, TProps>(
   Component: React.ForwardRefRenderFunction<TRef, TProps>
 ) => React.ForwardRefExoticComponent<React.PropsWithoutRef<TProps>>;
 
-export default function createContext<TProviderProps, TContext>(
-  useHook: (args: TProviderProps) => TContext,
+export default function createContext<TContext, TProviderProps = TContext>(
+  useProvider: (args: TProviderProps) => TContext = (val: TProviderProps) =>
+    (val as unknown) as TContext,
+  defaultValue?: TContext,
   contextName = "Hook"
 ): [
   ContextProvider<TProviderProps>,
@@ -18,13 +20,13 @@ export default function createContext<TProviderProps, TContext>(
   WithContext<TProviderProps>,
   React.Context<TContext | undefined>
 ] {
-  const Context = React.createContext<TContext | undefined>(undefined);
+  const Context = React.createContext(defaultValue);
 
   const Provider = ({
     children,
     ...options
   }: React.PropsWithChildren<TProviderProps>) => {
-    const value = useHook((options as unknown) as TProviderProps);
+    const value = useProvider((options as unknown) as TProviderProps);
     return <Context.Provider value={value}>{children}</Context.Provider>;
   };
 
@@ -38,12 +40,14 @@ export default function createContext<TProviderProps, TContext>(
     // if (process.env.NODE_ENV === "development") {
     if (context === undefined) {
       console.warn(
-        `use${contextName}Context must be used within a ${contextName}Provider`
+        `use${contextName}Context must be used within a ${contextName}Provider or the context must be created with a defaultValue`
       );
     }
     // }
     return context as TContext;
   };
+
+  useContext.displayName = `use${contextName}`;
 
   function withContext<TProps, TRef>(
     options: React.PropsWithChildren<TProviderProps>,
