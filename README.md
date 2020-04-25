@@ -1,8 +1,30 @@
 # create-hook-context
 
-A more powerful version of `React.createContext`. Accepts a hook that takes in props for a provider, and then returned value of the hook, is the value provided to the context's consumers.
+A more powerful version of `React.createContext`. Accepts a hook function that takes in props for a Provider and then the returned value of the hook is the value provided to the Context's consumers. 
 
-Signature:
+Given hook `(props: TProviderProps) => TContext`, returns utilities as an array `[ContextProvider, useContext, withContextProvider, Context]` to consume this context:
+
+* `ContextProvider`: Takes in `TProviderProps` and provides a context `TContext`, eg. 
+```tsx
+
+<ContextProvider {...props}><Consumers></ContextProvider>
+```
+* `useContext`: Returns the wrapped `TContext`, eg. 
+```tsx 
+
+const context = useContext()
+```
+* `withContextProvider`: Can be used to wrap a component with a `ContextProvider`, eg. 
+```tsx 
+
+const App = withContextProvider(props)(() => { 
+  const context = useContext(); 
+  return <div>{JSON.stringify(context)}</div>;
+});
+```
+* `Context`: Context created by React
+
+### Example:
 
 ```javascript
 
