@@ -13,7 +13,7 @@ export default function createContext<TContext, TProviderProps = TContext>(
   useProvider: (args: TProviderProps) => TContext = (val: TProviderProps) =>
     (val as unknown) as TContext,
   defaultValue?: TContext,
-  contextName = "Hook"
+  displayName = "Hook"
 ): [
   ContextProvider<TProviderProps>,
   UseContext<TContext>,
@@ -22,7 +22,7 @@ export default function createContext<TContext, TProviderProps = TContext>(
 ] {
   const Context = React.createContext(defaultValue);
 
-  const Provider = ({
+  const ContextProvider = ({
     children,
     ...options
   }: React.PropsWithChildren<TProviderProps>) => {
@@ -31,8 +31,8 @@ export default function createContext<TContext, TProviderProps = TContext>(
   };
 
   // if (process.env.NODE_ENV !== "production") {
-  Context.displayName = `${contextName}Context`;
-  Provider.displayName = `${contextName}Provider`;
+  Context.displayName = `${displayName}Context`;
+  ContextProvider.displayName = `${displayName}Provider`;
   // }
 
   const useContext = () => {
@@ -40,34 +40,36 @@ export default function createContext<TContext, TProviderProps = TContext>(
     // if (process.env.NODE_ENV === "development") {
     if (context === undefined) {
       console.warn(
-        `use${contextName}Context must be used within a ${contextName}Provider or the context must be created with a defaultValue`
+        `use${displayName}Context must be used within a ${displayName}Provider or the context must be created with a defaultValue`
       );
     }
     // }
     return context as TContext;
   };
 
-  useContext.displayName = `use${contextName}`;
+  useContext.displayName = `use${displayName}`;
 
-  function withContext<TProps, TRef>(
+  function withContextProvider<TProps, TRef>(
     options: React.PropsWithChildren<TProviderProps>,
     Component: React.ForwardRefRenderFunction<TRef, TProps>
   ) {
-    const WithContext = React.forwardRef<TRef, TProps>((props: TProps, ref) => (
-      <Provider {...options}>
-        <Component {...props} ref={ref} />
-      </Provider>
-    ));
+    const WithContextProvider = React.forwardRef<TRef, TProps>(
+      (props: TProps, ref) => (
+        <ContextProvider {...options}>
+          <Component {...props} ref={ref} />
+        </ContextProvider>
+      )
+    );
 
     // if (process.env.NODE_ENV === "development") {
-    WithContext.displayName = `With${contextName}(${
+    WithContextProvider.displayName = `With${displayName}Provider(${
       Component.displayName || Component.name || "Component"
     })`;
     // }
-    return WithContext;
+    return WithContextProvider;
   }
 
-  return [Provider, useContext, withContext, Context];
+  return [ContextProvider, useContext, withContextProvider, Context];
 }
 
 export { createContext };

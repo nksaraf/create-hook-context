@@ -1,23 +1,12 @@
 import createContext from "create-hook-context";
 import React from "react";
 
-const [ThemeProvider, useTheme] = createContext<object, { theme: object }>(
-  ({ theme }) => theme,
-  {},
-  "Theme"
-);
+const [ThemeProvider, useTheme, withThemeProvider] = createContext<
+  object,
+  { theme: object }
+>(({ theme }) => theme, {}, "Theme");
 
-const Consumer = () => {
+export default withThemeProvider({ theme: { a: 1 } }, () => {
   const val = useTheme();
   return <pre>{JSON.stringify(val)}</pre>;
-};
-
-export default () => {
-  return (
-    <>
-      <ThemeProvider theme={{ a: 1 }}>
-        <Consumer />
-      </ThemeProvider>
-    </>
-  );
-};
+});
