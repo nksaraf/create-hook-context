@@ -7,7 +7,9 @@ Given hook `(props: TProviderProps) => TContext`, returns utilities as an array 
 * `ContextProvider`: Takes in `TProviderProps` and provides a context `TContext`, eg. 
 ```tsx
 
-<ContextProvider {...props}><Consumers></ContextProvider>
+<ContextProvider {...props}>
+  <Consumers>
+ </ContextProvider>
 ```
 * `useContext`: Returns the wrapped `TContext`, eg. 
 ```tsx 
