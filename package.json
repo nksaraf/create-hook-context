@@ -1,6 +1,6 @@
 {
   "name": "create-hook-context",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Create context using a hook for providers",
   "repository": "nksaraf/create-hook-context",
   "license": "MIT",
