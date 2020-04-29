@@ -1,6 +1,6 @@
 {
   "name": "create-hook-context",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "Create context using a hook for providers",
   "repository": "nksaraf/create-hook-context",
   "license": "MIT",
@@ -12,7 +12,8 @@
     "build": "pkger build",
     "prepublishOnly": "pkger build",
     "watch": "pkger",
-    "dev": "next"
+    "dev": "next",
+    "pub": "bump && yarn publish --access public --non-interactive"
   },
   "pkger": {
     "jsx": "h"
