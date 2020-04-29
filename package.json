@@ -5,28 +5,23 @@
   "repository": "nksaraf/create-hook-context",
   "license": "MIT",
   "author": "Nikhil Saraf <nsaraf98@gmail.com>",
-  "main": "dist/create-hook-context.cjs.js",
-  "unpkg": "dist/create-hook-context.js",
-  "module": "dist/create-hook-context.js",
+  "main": "dist/cjs/create-hook-context.js",
+  "module": "dist/esm/create-hook-context.js",
   "source": "src/index.tsx",
-  "browser": "dist/create-hook-context.umd.js",
-  "types": "dist/create-hook-context.d.ts",
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "klap build --no-minify",
-    "postbuild": "tsc -p tsconfig.build.json",
-    "prepublishOnly": "yarn build",
-    "start": "klap start",
-    "watch": "klap watch",
+    "build": "pkger build",
+    "prepublishOnly": "pkger build",
+    "watch": "pkger",
     "dev": "next"
+  },
+  "pkger": {
+    "jsx": "h"
   },
   "devDependencies": {
     "@types/next": "^9.0.0",
     "@types/node": "^13.13.0",
     "@types/react": "^16.9.34",
-    "klap": "4.2.3",
+    "pkger": "latest",
     "next": "^9.3.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -34,5 +29,11 @@
   },
   "peerDependencies": {
     "react": "^16.8"
-  }
+  },
+  "browser": "dist/esm/create-hook-context.js",
+  "types": "dist/types",
+  "files": [
+    "dist",
+    "dist/types"
+  ]
 }
